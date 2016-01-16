@@ -4,9 +4,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class FieldServiceApiApplication {
+public class Application {
 
 	public static void main(String[] args) {
-		SpringApplication.run(FieldServiceApiApplication.class, args);
+		SpringApplication.run(Application.class, args);
 	}
 }

@@ -6,20 +6,14 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @Entity
-public class Address {
+public class City {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long id;
 
 	@Getter
 	@Setter
-	private int number;
-
-	@ManyToOne
-	private City city;
-
-	@ManyToOne
-	private Street street;
+	private String name;
 
 }

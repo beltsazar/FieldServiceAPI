@@ -6,9 +6,9 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 import java.util.List;
 
-@RepositoryRestResource
-public interface AddressRepository extends PagingAndSortingRepository<Address, Long> {
+@RepositoryRestResource()
+public interface StreetRepository extends PagingAndSortingRepository<Street, Long> {
 
-	List<Address> findByNumber(@Param("number") int number);
+	List<Street> findByName(@Param("name") String name);
 
 }

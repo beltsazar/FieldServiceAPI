@@ -1,4 +1,4 @@
-package org.marcuse.fieldservice;
+package org.marcuse.fieldservice.repositories;
 
 import lombok.Getter;
 import lombok.Setter;

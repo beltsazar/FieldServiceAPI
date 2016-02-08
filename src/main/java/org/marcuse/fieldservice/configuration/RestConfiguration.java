@@ -1,4 +1,4 @@
-package org.marcuse.fieldservice;
+package org.marcuse.fieldservice.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

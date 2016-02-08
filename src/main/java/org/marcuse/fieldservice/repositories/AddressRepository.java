@@ -1,4 +1,4 @@
-package org.marcuse.fieldservice;
+package org.marcuse.fieldservice.repositories;
 
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;

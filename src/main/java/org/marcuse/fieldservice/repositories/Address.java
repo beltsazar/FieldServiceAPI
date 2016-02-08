@@ -1,13 +1,12 @@
-package org.marcuse.fieldservice;
+package org.marcuse.fieldservice.repositories;
 
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
-public class Area {
+public class Address {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -17,6 +16,13 @@ public class Area {
 	@Setter
 	private int number;
 
-	@OneToMany(mappedBy = "area")
-	private List<Address> addresses;
+	@ManyToOne
+	private City city;
+
+	@ManyToOne
+	private Street street;
+
+	@ManyToOne
+	private Area area;
+
 }

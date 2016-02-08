@@ -2,6 +2,7 @@ package org.marcuse.fieldservice;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.marcuse.fieldservice.repositories.Address;
 
 import javax.persistence.*;
 

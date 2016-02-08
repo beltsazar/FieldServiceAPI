@@ -1,6 +1,5 @@
-package org.marcuse.fieldservice;
+package org.marcuse.fieldservice.repositories;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.rest.core.config.Projection;
 
 @Projection(name = "full", types = Address.class)

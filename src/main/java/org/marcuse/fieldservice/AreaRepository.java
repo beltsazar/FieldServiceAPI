@@ -6,9 +6,9 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 import java.util.List;
 
-@RepositoryRestResource(excerptProjection = AddressProjectionFull.class)
-public interface AddressRepository extends PagingAndSortingRepository<Address, Long> {
+@RepositoryRestResource
+public interface AreaRepository extends PagingAndSortingRepository<Area, Long> {
 
-	List<Address> findByNumber(@Param("number") int number);
+	List<Area> findByNumber(@Param("number") int number);
 
 }

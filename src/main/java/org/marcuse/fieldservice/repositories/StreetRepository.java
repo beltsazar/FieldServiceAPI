@@ -6,7 +6,7 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 import java.util.List;
 
-@RepositoryRestResource(excerptProjection = StreetProjectionFull.class)
+@RepositoryRestResource
 public interface StreetRepository extends PagingAndSortingRepository<Street, Long> {
 
 	List<Street> findByName(@Param("name") String name);

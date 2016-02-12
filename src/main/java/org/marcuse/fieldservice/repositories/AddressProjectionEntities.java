@@ -11,4 +11,6 @@ public interface AddressProjectionEntities {
 
     City getCity();
 
+	Area getArea();
+
 }

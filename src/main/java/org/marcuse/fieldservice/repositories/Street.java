@@ -13,6 +13,7 @@ public class Street {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Getter
 	private long id;
 
 	@Getter

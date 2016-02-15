@@ -10,6 +10,7 @@ public class City {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Getter
 	private long id;
 
 	@Getter

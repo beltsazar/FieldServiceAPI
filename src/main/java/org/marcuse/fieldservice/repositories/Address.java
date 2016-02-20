@@ -25,11 +25,9 @@ public class Address {
 	@ManyToOne
 	private Street street;
 
-	@Getter
 	@ManyToOne
 	private Area area;
 
-	@Getter
 	@OneToMany(mappedBy = "address")
 	private List<Visit> visits;
 

@@ -2,11 +2,10 @@ package org.marcuse.fieldservice.repositories;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.beans.factory.annotation.Value;
+import org.marcuse.fieldservice.utilities.PresentationHelper;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 @Entity
 public class Visit {
@@ -27,10 +26,8 @@ public class Visit {
 	@Setter
 	public LocalDateTime creationDate;
 
-	// Format datetime into nice string
 	public String getCreationDate() {
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy hh:mm:ss");
-		return this.creationDate.format(formatter);
+		return PresentationHelper.formatDateTime(this.creationDate);
 	}
 
 	@ManyToOne

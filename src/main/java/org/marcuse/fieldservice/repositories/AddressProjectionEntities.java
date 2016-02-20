@@ -16,12 +16,4 @@ public interface AddressProjectionEntities {
 
 	Area getArea();
 
-
-	//String iets = getStringThing();
-
-	//List<Visit> getVisits();
-
-	@Value("#{@visitHelper.sayHello(target)}")
-	long getVisit();
-
 }

@@ -21,7 +21,6 @@ public class Area {
 	@OneToMany(mappedBy = "area")
 	private List<Address> addresses;
 
-	@Getter
 	@OneToMany(mappedBy = "area")
 	private List<Report> reports;
 

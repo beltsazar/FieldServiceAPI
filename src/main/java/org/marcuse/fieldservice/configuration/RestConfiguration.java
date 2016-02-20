@@ -10,6 +10,12 @@ import org.springframework.web.filter.CorsFilter;
 public class RestConfiguration {
 
     @Bean
+    public String sayHello() {
+        return "Hallo";
+
+    }
+
+    @Bean
     public CorsFilter corsFilter() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();

@@ -2,18 +2,11 @@ package org.marcuse.fieldservice.repositories;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.beans.factory.annotation.Value;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 
 @Entity
 public class Visit {
@@ -25,19 +18,25 @@ public class Visit {
 
 	@Getter
 	@Setter
-	private boolean isSuccess;
+	private boolean success;
 
 	@Getter
 	@Setter
 	private long turn;
 
 	@Setter
-	@Getter
 	public LocalDateTime creationDate;
 
+	// Format datetime into nice string
 	public String getCreationDate() {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy hh:mm:ss");
 		return this.creationDate.format(formatter);
 	}
+
+	@ManyToOne
+	private Address address;
+
+	@ManyToOne
+	private Report report;
 
 }

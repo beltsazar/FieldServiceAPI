@@ -8,6 +8,8 @@ import org.springframework.data.rest.core.config.Projection;
 @Projection(name = "entities", types = Address.class)
 public interface AddressProjectionEntities {
 
+	long getId();
+
 	long getNumber();
 
 	Street getStreet();

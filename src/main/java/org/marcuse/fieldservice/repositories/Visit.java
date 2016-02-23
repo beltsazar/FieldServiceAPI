@@ -21,7 +21,7 @@ public class Visit {
 
 	@Getter
 	@Setter
-	private long turn;
+	private long iteration;
 
 	@Setter
 	public LocalDateTime creationDate;
@@ -30,6 +30,7 @@ public class Visit {
 		return PresentationHelper.formatDateTime(this.creationDate);
 	}
 
+	@Getter
 	@ManyToOne
 	private Address address;
 

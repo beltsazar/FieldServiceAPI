@@ -2,13 +2,12 @@ package org.marcuse.fieldservice.repositories;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.beans.factory.annotation.Value;
 
 import javax.persistence.*;
-import java.util.List;
+import java.time.LocalDateTime;
 
 @Entity
-public class Address {
+public class Assignment {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -17,15 +16,20 @@ public class Address {
 
 	@Getter
 	@Setter
-	private int number;
+	private boolean active;
 
-	@ManyToOne
-	private Street street;
+	@Getter
+	@Setter
+	private boolean personal;
+
+	@Getter
+	@Setter
+	public LocalDateTime creationDate;
 
 	@ManyToOne
 	private Area area;
 
-	@OneToMany(mappedBy = "address")
-	private List<Visit> visits;
+	@OneToOne(mappedBy = "assignment")
+	private WorkSheet workSheet;
 
 }

@@ -2,14 +2,13 @@ package org.marcuse.fieldservice.repositories;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.marcuse.fieldservice.utilities.PresentationHelper;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-public class Report {
+public class WorkSheet {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -24,18 +23,15 @@ public class Report {
 	@Setter
 	private long iteration;
 
+	@Getter
 	@Setter
 	public LocalDateTime creationDate;
 
-	public String getCreationDate() {
-		return PresentationHelper.formatDateTime(this.creationDate);
-	}
-
-	@ManyToOne
-	private Area area;
+	@OneToOne
+	private Assignment assignment;
 
 	@Getter
-	@OneToMany(mappedBy = "report")
+	@OneToMany(mappedBy = "workSheet")
 	private List<Visit> visits;
 
 }

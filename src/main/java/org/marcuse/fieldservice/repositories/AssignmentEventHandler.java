@@ -7,13 +7,12 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDateTime;
 
 @Component
-@RepositoryEventHandler(Report.class)
-public class ReportEventHandler {
+@RepositoryEventHandler(Assignment.class)
+public class AssignmentEventHandler {
 
 	@HandleBeforeCreate
-	public void handleReportCreation(Report report) {
-		report.setCreationDate(LocalDateTime.now());
-		report.setIteration(1);
+	public void handleAssignmentCreation(Assignment assignment) {
+		assignment.setCreationDate(LocalDateTime.now());
 	}
 
 }

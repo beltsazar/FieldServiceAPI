@@ -7,8 +7,8 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 @RepositoryRestResource
-public interface VisitRepository extends PagingAndSortingRepository<Visit, Long> {
+public interface AssignmentRepository extends PagingAndSortingRepository<Assignment, Long> {
 
-	Page<Address> findByWorkSheet(@Param("worksheet") WorkSheet workSheet, Pageable pageable);
+	Page<WorkSheet> findByArea(@Param("area") Area area, Pageable pageable);
 
 }

@@ -28,6 +28,6 @@ public class Area {
 	private List<Assignment> assignments;
 
 //	@OneToMany(mappedBy = "area")
-//	private List<WorkSheet> reports;
+//	private List<Worksheet> reports;
 
 }

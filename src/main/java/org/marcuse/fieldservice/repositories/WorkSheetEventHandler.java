@@ -7,13 +7,13 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDateTime;
 
 @Component
-@RepositoryEventHandler(WorkSheet.class)
-public class WorkSheetEventHandler {
+@RepositoryEventHandler(Worksheet.class)
+public class WorksheetEventHandler {
 
 	@HandleBeforeCreate
-	public void handleWorkSheetCreation(WorkSheet workSheet) {
-		workSheet.setCreationDate(LocalDateTime.now());
-		workSheet.setIteration(1);
+	public void handleWorksheetCreation(Worksheet worksheet) {
+		worksheet.setCreationDate(LocalDateTime.now());
+		worksheet.setIteration(1);
 	}
 
 }

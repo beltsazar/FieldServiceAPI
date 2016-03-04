@@ -31,6 +31,6 @@ public class Visit {
 	private Address address;
 
 	@ManyToOne
-	private WorkSheet workSheet;
+	private Worksheet worksheet;
 
 }

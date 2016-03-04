@@ -30,6 +30,6 @@ public class Assignment {
 	private Area area;
 
 	@OneToOne(mappedBy = "assignment")
-	private WorkSheet workSheet;
+	private Worksheet worksheet;
 
 }

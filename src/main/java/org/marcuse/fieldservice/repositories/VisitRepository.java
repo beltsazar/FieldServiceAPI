@@ -9,6 +9,6 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 @RepositoryRestResource
 public interface VisitRepository extends PagingAndSortingRepository<Visit, Long> {
 
-	Page<Address> findByWorkSheet(@Param("worksheet") WorkSheet workSheet, Pageable pageable);
+	Page<Address> findByWorksheet(@Param("worksheet") Worksheet worksheet, Pageable pageable);
 
 }

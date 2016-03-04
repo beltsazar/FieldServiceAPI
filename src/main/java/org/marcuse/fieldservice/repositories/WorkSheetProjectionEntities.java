@@ -5,8 +5,8 @@ import org.springframework.data.rest.core.config.Projection;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Projection(name = "entities", types = WorkSheet.class)
-public interface WorkSheetProjectionEntities {
+@Projection(name = "entities", types = Worksheet.class)
+public interface WorksheetProjectionEntities {
 
 	long getId();
 

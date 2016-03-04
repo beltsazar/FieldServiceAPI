@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-public class WorkSheet {
+public class Worksheet {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -31,7 +31,7 @@ public class WorkSheet {
 	private Assignment assignment;
 
 	@Getter
-	@OneToMany(mappedBy = "workSheet")
+	@OneToMany(mappedBy = "worksheet")
 	private List<Visit> visits;
 
 }

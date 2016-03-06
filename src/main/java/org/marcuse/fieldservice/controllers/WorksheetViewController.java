@@ -2,6 +2,7 @@ package org.marcuse.fieldservice.controllers;
 
 
 import org.marcuse.fieldservice.repositories.*;
+import org.marcuse.fieldservice.views.WorksheetAddress;
 import org.marcuse.fieldservice.views.WorksheetGroup;
 import org.marcuse.fieldservice.views.WorksheetView;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,11 +55,14 @@ public class WorksheetViewController {
 
 		List<Visit> visits = visitRepository.findByWorksheet(worksheet);
 
+		/**
+		 * Create a worksheet group for each unique street in the collection of addresses
+		 */
 		HashSet<Street> streetHashSet = new HashSet<>();
 
-		List<WorksheetGroup> worksheetGroups = new ArrayList<>();
-
 		addresses.forEach(address -> streetHashSet.add(address.getStreet()));
+
+		List<WorksheetGroup> worksheetGroups = new ArrayList<>();
 
 		streetHashSet.forEach(street -> {
 			WorksheetGroup worksheetGroup = new WorksheetGroup();
@@ -67,29 +71,58 @@ public class WorksheetViewController {
 			worksheetGroups.add(worksheetGroup);
 		});
 
+		/**
+		 * Add visits to each address and assign address to the correct group by street
+		 */
 		addresses.forEach(address -> {
 			WorksheetGroup worksheetGroup = getWorksheetGroupByStreet(address.getStreet(), worksheetGroups);
+			List<Visit> addressVisits = new ArrayList<>();
 
 			if (worksheetGroup != null) {
-				worksheetGroup.getAddresses().add(address);
+				WorksheetAddress worksheetAddress = new WorksheetAddress();
+				worksheetAddress.setId(address.getId());
+				worksheetAddress.setNumber(address.getNumber());
+
+				addressVisits = getVisitsByAddress(address, visits);
+
+				if(addressVisits.size() > 0) {
+					addressVisits.sort(new Comparator<Visit>() {
+						public int compare(Visit v1, Visit v2) {
+							return ((Long) v1.getIteration()).compareTo(v2.getIteration());
+						}
+					});
+					worksheetAddress.setVisits(addressVisits);
+				}
+				else {
+					worksheetAddress.setVisits(null);
+				}
+
+				worksheetGroup.getAddresses().add(worksheetAddress);
 			}
 
 		});
 
+		/**
+		 * Sort worksheet group by street name
+		 */
 		worksheetGroups.sort(new Comparator<WorksheetGroup>() {
 			public int compare(WorksheetGroup v1, WorksheetGroup v2) {
 				return v1.getStreet().getName().compareTo(v2.getStreet().getName());
 			}
 		});
 
+		/**
+		 * Sort each address in the groups by house number
+		 */
 		worksheetGroups.forEach(worksheetGroup ->
-			worksheetGroup.getAddresses().sort(new Comparator<Address>() {
-				public int compare(Address v1, Address v2) {
+			worksheetGroup.getAddresses().sort(new Comparator<WorksheetAddress>() {
+				public int compare(WorksheetAddress v1, WorksheetAddress v2) {
 					return ((Integer) v1.getNumber()).compareTo(v2.getNumber());
 				}
 			})
 		);
 
+		worksheetView.setId(worksheet.getId());
 		worksheetView.setActive(worksheet.isActive());
 		worksheetView.setIteration(worksheet.getIteration());
 		worksheetView.setGroups(worksheetGroups);
@@ -98,7 +131,6 @@ public class WorksheetViewController {
 	}
 
 	private WorksheetGroup getWorksheetGroupByStreet(Street street, List<WorksheetGroup> worksheetGroups) {
-		WorksheetGroup matchingWorksheetGroup;
 
 		for (WorksheetGroup worksheetGroup : worksheetGroups) {
 			if (street.equals(worksheetGroup.getStreet())) {
@@ -108,7 +140,20 @@ public class WorksheetViewController {
 		}
 
 		return null;
+	}
 
+	private List<Visit> getVisitsByAddress(Address address, List<Visit> visits) {
+
+		List<Visit> matchingVisits = new ArrayList<>();
+
+		for (Visit visit : visits) {
+			if (address.equals(visit.getAddress())) {
+				matchingVisits.add(visit);
+			}
+
+		}
+
+		return matchingVisits;
 	}
 
 

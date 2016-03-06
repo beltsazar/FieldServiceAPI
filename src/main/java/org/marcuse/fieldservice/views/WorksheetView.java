@@ -17,6 +17,10 @@ public class WorksheetView {
 
 	@Getter
 	@Setter
+	private long id;
+
+	@Getter
+	@Setter
 	private boolean active;
 
 	@Getter

@@ -6,7 +6,6 @@ import lombok.Setter;
 import org.marcuse.fieldservice.repositories.Address;
 import org.marcuse.fieldservice.repositories.Street;
 import org.marcuse.fieldservice.repositories.Visit;
-import org.marcuse.fieldservice.repositories.Worksheet;
 
 import java.util.List;
 
@@ -15,14 +14,17 @@ import java.util.List;
  */
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class WorksheetGroup {
+public class WorksheetAddress {
 
 	@Getter
 	@Setter
-	private Street street;
+	private long id;
 
 	@Getter
 	@Setter
-	private List<WorksheetAddress> addresses;
+	private int number;
 
+	@Getter
+	@Setter
+	private List<Visit> visits;
 }

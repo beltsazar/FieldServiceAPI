@@ -1,6 +1,7 @@
 package org.marcuse.fieldservice.repositories;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -28,6 +29,8 @@ public class Visit {
 	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS")
 	public LocalDateTime creationDate;
 
+	@JsonIgnore
+	@Getter
 	@ManyToOne
 	private Address address;
 

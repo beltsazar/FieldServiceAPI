@@ -1,5 +1,6 @@
 package org.marcuse.fieldservice.repositories;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -24,8 +25,10 @@ public class Assignment {
 
 	@Getter
 	@Setter
+	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS")
 	public LocalDateTime creationDate;
 
+	@Getter
 	@ManyToOne
 	private Area area;
 

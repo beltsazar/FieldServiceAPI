@@ -18,6 +18,7 @@ public class Area {
 	@Setter
 	private int number;
 
+	@Getter
 	@ManyToOne
 	private City city;
 
@@ -27,7 +28,5 @@ public class Area {
 	@OneToMany(mappedBy = "area")
 	private List<Assignment> assignments;
 
-//	@OneToMany(mappedBy = "area")
-//	private List<Worksheet> reports;
 
 }

@@ -27,7 +27,7 @@ public class Address {
 
 	@ManyToOne
 	private Area area;
-
+	
 	@OneToMany(mappedBy = "address")
 	private List<Visit> visits;
 

@@ -8,10 +8,6 @@ import org.marcuse.fieldservice.repositories.*;
 
 import java.util.List;
 
-/**
- * Created by danielmarcuse on 28/02/16.
- */
-
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class WorksheetView {
 
@@ -26,6 +22,10 @@ public class WorksheetView {
 	@Getter
 	@Setter
 	private long iteration;
+
+	@Getter
+	@Setter
+	private Area area;
 
 	@Getter
 	@Setter

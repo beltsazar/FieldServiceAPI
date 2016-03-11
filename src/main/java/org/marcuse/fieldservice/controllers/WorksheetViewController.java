@@ -14,10 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.constraints.NotNull;
 import java.util.*;
 
-/**
- * Created by danielmarcuse on 28/02/16.
- */
-
 @RestController
 @RequestMapping("/worksheets")
 public class WorksheetViewController {
@@ -122,9 +118,15 @@ public class WorksheetViewController {
 			})
 		);
 
+		/**
+		 * Remove address object from visit
+		 */
+		visits.forEach(visit -> visit.setAddress(null));
+
 		worksheetView.setId(worksheet.getId());
 		worksheetView.setActive(worksheet.isActive());
 		worksheetView.setIteration(worksheet.getIteration());
+		worksheetView.setArea(area);
 		worksheetView.setGroups(worksheetGroups);
 
 		return worksheetView;

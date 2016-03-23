@@ -20,14 +20,15 @@ public class Address {
 	@Setter
 	private int number;
 
-	@JsonIgnore
 	@Getter
+	@Setter
 	@ManyToOne
 	private Street street;
 
+	@Setter
 	@ManyToOne
 	private Area area;
-	
+
 	@OneToMany(mappedBy = "address")
 	private List<Visit> visits;
 

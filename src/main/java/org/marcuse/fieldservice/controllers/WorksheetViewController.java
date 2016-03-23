@@ -15,7 +15,6 @@ import javax.validation.constraints.NotNull;
 import java.util.*;
 
 @RestController
-@RequestMapping("/worksheets")
 public class WorksheetViewController {
 
 	@Autowired
@@ -36,7 +35,7 @@ public class WorksheetViewController {
 	@Autowired
 	private VisitRepository visitRepository;
 
-	@RequestMapping(path = "/{worksheetId}", method = RequestMethod.GET)
+	@RequestMapping(path = "/worksheets/{worksheetId}/view", method = RequestMethod.GET)
 	public WorksheetView worksheetView(@PathVariable Long worksheetId) {
 
 		WorksheetView worksheetView = new WorksheetView();
@@ -126,6 +125,7 @@ public class WorksheetViewController {
 		worksheetView.setId(worksheet.getId());
 		worksheetView.setActive(worksheet.isActive());
 		worksheetView.setIteration(worksheet.getIteration());
+		worksheetView.setCreationDate(worksheet.getCreationDate());
 		worksheetView.setArea(area);
 		worksheetView.setGroups(worksheetGroups);
 

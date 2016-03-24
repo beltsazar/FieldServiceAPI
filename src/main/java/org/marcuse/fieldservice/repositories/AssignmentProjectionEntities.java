@@ -15,6 +15,8 @@ public interface AssignmentProjectionEntities {
 
 	LocalDateTime getCreationDate();
 
+	LocalDateTime getCloseDate();
+
 	Area getArea();
 
 	Worksheet getWorksheet();

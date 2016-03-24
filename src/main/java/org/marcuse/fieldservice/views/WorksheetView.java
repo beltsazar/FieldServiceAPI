@@ -27,8 +27,17 @@ public class WorksheetView {
 
 	@Getter
 	@Setter
+	private boolean personal;
+
+	@Getter
+	@Setter
 	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS")
 	public LocalDateTime creationDate;
+
+	@Getter
+	@Setter
+	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS")
+	public LocalDateTime closeDate;
 
 	@Getter
 	@Setter

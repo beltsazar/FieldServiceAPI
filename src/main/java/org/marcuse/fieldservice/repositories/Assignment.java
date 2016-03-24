@@ -29,6 +29,12 @@ public class Assignment {
 	public LocalDateTime creationDate;
 
 	@Getter
+	@Setter
+	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS")
+	public LocalDateTime closeDate;
+
+	@Getter
+	@Setter
 	@ManyToOne
 	private Area area;
 

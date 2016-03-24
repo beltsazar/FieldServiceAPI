@@ -125,7 +125,9 @@ public class WorksheetViewController {
 		worksheetView.setId(worksheet.getId());
 		worksheetView.setActive(worksheet.isActive());
 		worksheetView.setIteration(worksheet.getIteration());
+		worksheetView.setPersonal(assignment.isPersonal());
 		worksheetView.setCreationDate(worksheet.getCreationDate());
+		worksheetView.setCloseDate(worksheet.getCloseDate());
 		worksheetView.setArea(area);
 		worksheetView.setGroups(worksheetGroups);
 

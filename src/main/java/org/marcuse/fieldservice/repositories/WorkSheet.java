@@ -30,6 +30,11 @@ public class Worksheet {
 	public LocalDateTime creationDate;
 
 	@Getter
+	@Setter
+	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS")
+	public LocalDateTime closeDate;
+
+	@Getter
 	@OneToOne
 	private Assignment assignment;
 

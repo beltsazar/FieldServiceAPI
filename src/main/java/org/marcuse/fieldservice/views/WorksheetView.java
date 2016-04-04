@@ -19,15 +19,7 @@ public class WorksheetView {
 
 	@Getter
 	@Setter
-	private boolean active;
-
-	@Getter
-	@Setter
 	private long iteration;
-
-	@Getter
-	@Setter
-	private boolean personal;
 
 	@Getter
 	@Setter
@@ -41,7 +33,7 @@ public class WorksheetView {
 
 	@Getter
 	@Setter
-	private Area area;
+	private Assignment assignment;
 
 	@Getter
 	@Setter

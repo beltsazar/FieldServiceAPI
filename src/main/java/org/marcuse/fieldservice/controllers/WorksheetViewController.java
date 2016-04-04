@@ -123,12 +123,10 @@ public class WorksheetViewController {
 		visits.forEach(visit -> visit.setAddress(null));
 
 		worksheetView.setId(worksheet.getId());
-		worksheetView.setActive(worksheet.isActive());
 		worksheetView.setIteration(worksheet.getIteration());
-		worksheetView.setPersonal(assignment.isPersonal());
 		worksheetView.setCreationDate(worksheet.getCreationDate());
 		worksheetView.setCloseDate(worksheet.getCloseDate());
-		worksheetView.setArea(area);
+		worksheetView.setAssignment(assignment);
 		worksheetView.setGroups(worksheetGroups);
 
 		return worksheetView;

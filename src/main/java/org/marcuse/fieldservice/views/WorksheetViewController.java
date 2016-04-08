@@ -1,4 +1,4 @@
-package org.marcuse.fieldservice.controllers;
+package org.marcuse.fieldservice.views;
 
 
 import org.marcuse.fieldservice.repositories.*;
@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 import java.util.*;
 
 @RestController
@@ -34,6 +35,22 @@ public class WorksheetViewController {
 
 	@Autowired
 	private VisitRepository visitRepository;
+
+	@RequestMapping(path = "/worksheets/view", method = RequestMethod.GET)
+	public List<WorksheetView> worksheetViewList() {
+
+		List<WorksheetView> worksheetViewList = new ArrayList<WorksheetView>();
+
+		worksheetRepository.findAll().forEach(worksheet -> worksheetViewList.add(worksheetView(worksheet.getId())));
+
+		worksheetViewList.sort(new Comparator<WorksheetView>() {
+			public int compare(WorksheetView v1, WorksheetView v2) {
+				return (v1.getCreationDate()).compareTo(v2.getCreationDate());
+			}
+		});
+
+		return worksheetViewList;
+	}
 
 	@RequestMapping(path = "/worksheets/{worksheetId}/view", method = RequestMethod.GET)
 	public WorksheetView worksheetView(@PathVariable Long worksheetId) {

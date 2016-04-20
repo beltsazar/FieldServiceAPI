@@ -45,7 +45,21 @@ public class WorksheetViewController {
 
 		worksheetViewList.sort(new Comparator<WorksheetView>() {
 			public int compare(WorksheetView v1, WorksheetView v2) {
-				return (v1.getCreationDate()).compareTo(v2.getCreationDate());
+				String city1 = v1.getAssignment().getArea().getCity().getName();
+				String city2 = v2.getAssignment().getArea().getCity().getName();
+
+				int compareResult = city1.compareTo(city2);
+
+				if (compareResult == 0) {
+					Integer number1 = v1.getAssignment().getArea().getNumber();
+					Integer number2 = v2.getAssignment().getArea().getNumber();
+
+					return number1.compareTo(number2);
+				}
+				else {
+					return compareResult;
+				}
+
 			}
 		});
 

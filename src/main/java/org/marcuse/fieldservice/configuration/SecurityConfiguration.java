@@ -20,13 +20,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.and().httpBasic();
 	}
 
-//	@Autowired
-//	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-//
-//		auth.inMemoryAuthentication().withUser("admin").password("admin").roles("ADMIN");
-//		auth.inMemoryAuthentication().withUser("ravan").password("ravan123").roles("USER");
-//		auth.inMemoryAuthentication().withUser("kans").password("kans123").roles("USER");
-//	}
+	@Autowired
+	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+
+		auth.inMemoryAuthentication().withUser("admin").password("admin").roles("ADMIN");
+		auth.inMemoryAuthentication().withUser("ravan").password("ravan123").roles("USER");
+		auth.inMemoryAuthentication().withUser("kans").password("kans123").roles("USER");
+	}
 
 
 }

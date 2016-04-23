@@ -12,6 +12,6 @@ import java.util.List;
 @RepositoryRestResource
 public interface AccountRepository extends PagingAndSortingRepository<Account, Long> {
 
-	List<Address> findByUsername(@Param("username") String username);
+	Account findByUsername(@Param("username") String username);
 
 }

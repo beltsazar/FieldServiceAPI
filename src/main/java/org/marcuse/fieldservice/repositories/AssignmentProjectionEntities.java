@@ -19,6 +19,8 @@ public interface AssignmentProjectionEntities {
 
 	Area getArea();
 
+	Account getAccount();
+
 	Worksheet getWorksheet();
 
 }

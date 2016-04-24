@@ -38,6 +38,11 @@ public class Assignment {
 	@ManyToOne
 	private Area area;
 
+	@Getter
+	@Setter
+	@ManyToOne
+	private Account account;
+
 	@OneToOne(mappedBy = "assignment")
 	private Worksheet worksheet;
 

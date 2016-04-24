@@ -33,7 +33,7 @@ public class GlobalAuthenticationConfiguration extends GlobalAuthenticationConfi
 				Account account = accountRepository.findByUsernameIgnoreCase(username);
 				if(account != null) {
 					return new User(account.getUsername(), account.getPassword(), true, true, true, true,
-							AuthorityUtils.createAuthorityList("USER"));
+							AuthorityUtils.createAuthorityList(account.getRole()));
 				} else {
 					throw new UsernameNotFoundException("could not find the user '"
 							+ username + "'");

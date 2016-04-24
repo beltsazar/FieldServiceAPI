@@ -25,9 +25,7 @@ public class AuthorisationController {
 	public Account getAuthorisedAccount(Authentication authentication) {
 
 		UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-
-		return accountRepository.findByUsername(userDetails.getUsername());
+		return accountRepository.findByUsernameIgnoreCase(userDetails.getUsername());
 
 	}
-
 }

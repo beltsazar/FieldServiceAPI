@@ -20,7 +20,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.authorizeRequests()
 				.antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 				.antMatchers(HttpMethod.GET, "/api/authorisation/status").permitAll()
-				.antMatchers("/**").fullyAuthenticated()
+				.antMatchers("/api/**").fullyAuthenticated()
 				.and().httpBasic()
 				.and().csrf().csrfTokenRepository(csrfTokenRepository())
 				.and().addFilterAfter(new CsrfHeaderFilter(), CsrfFilter.class);

@@ -19,7 +19,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		http
 				.authorizeRequests()
 				.antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-				.antMatchers(HttpMethod.GET, "/authorisation/status").permitAll()
+				.antMatchers(HttpMethod.GET, "/api/authorisation/status").permitAll()
 				.antMatchers("/**").fullyAuthenticated()
 				.and().httpBasic()
 				.and().csrf().csrfTokenRepository(csrfTokenRepository())

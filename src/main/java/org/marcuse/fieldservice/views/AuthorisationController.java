@@ -24,18 +24,18 @@ public class AuthorisationController {
 	@Autowired
 	private AccountRepository accountRepository;
 
-	@RequestMapping(path = "authorisation/login", method = RequestMethod.GET)
+	@RequestMapping(path = "/api/authorisation/login", method = RequestMethod.GET)
 	public AuthorisationStatus login(Authentication authentication) {
 		return isAuthenticated(authentication);
 	}
 
-	@RequestMapping(path = "authorisation/account", method = RequestMethod.GET)
+	@RequestMapping(path = "/api/authorisation/account", method = RequestMethod.GET)
 	public Account getAuthorisedAccount(Authentication authentication) {
 		UserDetails userDetails = (UserDetails) authentication.getPrincipal();
 		return accountRepository.findByUsernameIgnoreCase(userDetails.getUsername());
 	}
 
-	@RequestMapping(path = "authorisation/status", method = RequestMethod.GET)
+	@RequestMapping(path = "/api/authorisation/status", method = RequestMethod.GET)
 	public AuthorisationStatus isAuthenticated(Authentication authentication) {
 		AuthorisationStatus authorisationStatus = new AuthorisationStatus();
 

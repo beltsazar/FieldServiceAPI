@@ -36,7 +36,7 @@ public class WorksheetViewController {
 	@Autowired
 	private VisitRepository visitRepository;
 
-	@RequestMapping(path = "/worksheets/view", method = RequestMethod.GET)
+	@RequestMapping(path = "/api/worksheets/view", method = RequestMethod.GET)
 	public List<WorksheetView> worksheetViewList() {
 
 		List<WorksheetView> worksheetViewList = new ArrayList<WorksheetView>();
@@ -66,7 +66,7 @@ public class WorksheetViewController {
 		return worksheetViewList;
 	}
 
-	@RequestMapping(path = "/worksheets/{worksheetId}/view", method = RequestMethod.GET)
+	@RequestMapping(path = "/api/worksheets/{worksheetId}/view", method = RequestMethod.GET)
 	public WorksheetView worksheetView(@PathVariable Long worksheetId) {
 
 		WorksheetView worksheetView = new WorksheetView();

@@ -56,7 +56,7 @@ public class WorksheetViewController {
 				worksheet -> {
 					WorksheetView worksheetView = worksheetView(worksheet.getId());
 					if (worksheetView.isOwner()) {
-						worksheetViewList.add(worksheetView(worksheet.getId()));
+						worksheetViewList.add(worksheetView);
 					}
 				}
 			);

@@ -6,11 +6,11 @@ import org.marcuse.fieldservice.views.WorksheetAddress;
 import org.marcuse.fieldservice.views.WorksheetGroup;
 import org.marcuse.fieldservice.views.WorksheetView;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Nullable;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.*;
@@ -37,11 +37,17 @@ public class WorksheetViewController {
 	private VisitRepository visitRepository;
 
 	@RequestMapping(path = "/api/worksheets/view", method = RequestMethod.GET)
-	public List<WorksheetView> worksheetViewList() {
+	public List<WorksheetView> worksheetViewList(@RequestParam(value = "filter", required = false) String filter) {
 
 		List<WorksheetView> worksheetViewList = new ArrayList<WorksheetView>();
 
-		worksheetRepository.findAll().forEach(worksheet -> worksheetViewList.add(worksheetView(worksheet.getId())));
+		if(filter != null && filter.equals("visible")) {
+			System.out.print("ik kom hier");
+			worksheetRepository.findByVisible(true).forEach(worksheet -> worksheetViewList.add(worksheetView(worksheet.getId())));
+		}
+		else {
+			worksheetRepository.findAll().forEach(worksheet -> worksheetViewList.add(worksheetView(worksheet.getId())));
+		}
 
 		worksheetViewList.sort(new Comparator<WorksheetView>() {
 			public int compare(WorksheetView v1, WorksheetView v2) {

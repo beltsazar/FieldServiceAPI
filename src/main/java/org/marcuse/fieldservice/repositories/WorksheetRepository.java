@@ -13,5 +13,5 @@ import java.util.List;
 @Repository
 @RepositoryRestResource
 public interface WorksheetRepository extends PagingAndSortingRepository<Worksheet, Long> {
-
+	List<Worksheet> findByVisible(@Param("visible") boolean visible);
 }

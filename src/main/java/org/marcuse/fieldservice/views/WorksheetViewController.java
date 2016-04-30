@@ -8,6 +8,9 @@ import org.marcuse.fieldservice.views.WorksheetView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Nullable;
@@ -36,14 +39,28 @@ public class WorksheetViewController {
 	@Autowired
 	private VisitRepository visitRepository;
 
+	@Autowired
+	private AccountRepository accountRepository;
+
 	@RequestMapping(path = "/api/worksheets/view", method = RequestMethod.GET)
 	public List<WorksheetView> worksheetViewList(@RequestParam(value = "filter", required = false) String filter) {
 
 		List<WorksheetView> worksheetViewList = new ArrayList<WorksheetView>();
 
 		if(filter != null && filter.equals("visible")) {
-			System.out.print("ik kom hier");
 			worksheetRepository.findByVisible(true).forEach(worksheet -> worksheetViewList.add(worksheetView(worksheet.getId())));
+		}
+		else if(filter != null && filter.equals("me")) {
+
+			worksheetRepository.findAll().forEach(
+				worksheet -> {
+					WorksheetView worksheetView = worksheetView(worksheet.getId());
+					if (worksheetView.isOwner()) {
+						worksheetViewList.add(worksheetView(worksheet.getId()));
+					}
+				}
+			);
+
 		}
 		else {
 			worksheetRepository.findAll().forEach(worksheet -> worksheetViewList.add(worksheetView(worksheet.getId())));
@@ -86,6 +103,12 @@ public class WorksheetViewController {
 		List<Address> addresses = addressesRepository.findByAreaOrderByStreetName(area);
 
 		List<Visit> visits = visitRepository.findByWorksheet(worksheet);
+
+		/**
+		 * Get the current logged in Account
+		 */
+		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		Account currentAccount = accountRepository.findByUsernameIgnoreCase(userDetails.getUsername());
 
 		/**
 		 * Create a worksheet group for each unique street in the collection of addresses
@@ -159,9 +182,13 @@ public class WorksheetViewController {
 		 */
 		visits.forEach(visit -> visit.setAddress(null));
 
+		/**
+		 * Fill the JSON object
+		 */
 		worksheetView.setId(worksheet.getId());
 		worksheetView.setVisible(worksheet.isVisible());
 		worksheetView.setIteration(worksheet.getIteration());
+		worksheetView.setOwner(currentAccount.equals(worksheet.getAssignment().getAccount()));
 		worksheetView.setCreationDate(worksheet.getCreationDate());
 		worksheetView.setCloseDate(worksheet.getCloseDate());
 		worksheetView.setAssignment(assignment);

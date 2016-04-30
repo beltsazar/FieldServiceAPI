@@ -19,6 +19,10 @@ public class WorksheetView {
 
 	@Getter
 	@Setter
+	private boolean visible;
+
+	@Getter
+	@Setter
 	private long iteration;
 
 	@Getter

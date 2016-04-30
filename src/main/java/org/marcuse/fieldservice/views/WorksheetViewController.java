@@ -154,6 +154,7 @@ public class WorksheetViewController {
 		visits.forEach(visit -> visit.setAddress(null));
 
 		worksheetView.setId(worksheet.getId());
+		worksheetView.setVisible(worksheet.isVisible());
 		worksheetView.setIteration(worksheet.getIteration());
 		worksheetView.setCreationDate(worksheet.getCreationDate());
 		worksheetView.setCloseDate(worksheet.getCloseDate());

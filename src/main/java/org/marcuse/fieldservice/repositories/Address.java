@@ -29,6 +29,10 @@ public class Address {
 	@ManyToOne
 	private Area area;
 
+	@Getter
+	@OneToMany(mappedBy = "address")
+	private List<Annotation> annotations;
+
 	@OneToMany(mappedBy = "address")
 	private List<Visit> visits;
 

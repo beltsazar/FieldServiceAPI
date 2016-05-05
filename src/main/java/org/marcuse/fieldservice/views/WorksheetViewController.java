@@ -138,6 +138,12 @@ public class WorksheetViewController {
 				worksheetAddress.setId(address.getId());
 				worksheetAddress.setNumber(address.getNumber());
 
+				List<Annotation> annotations = address.getAnnotations();
+				if(annotations.size() > 0) {
+					annotations.forEach(annotation -> annotation.setAddress(null));
+					worksheetAddress.setAnnotations(annotations);
+				}
+
 				addressVisits = getVisitsByAddress(address, visits);
 
 				if(addressVisits.size() > 0) {

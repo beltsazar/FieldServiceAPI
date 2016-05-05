@@ -10,8 +10,12 @@ import java.util.List;
 /**
  * Created by danielmarcuse on 22/04/16.
  */
+
 @Entity
 public class Account {
+	enum Roles {
+		USER, ADMIN, ROOT
+	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.Setter;
 import org.marcuse.fieldservice.repositories.Address;
+import org.marcuse.fieldservice.repositories.Annotation;
 import org.marcuse.fieldservice.repositories.Street;
 import org.marcuse.fieldservice.repositories.Visit;
 
@@ -23,6 +24,10 @@ public class WorksheetAddress {
 	@Getter
 	@Setter
 	private int number;
+
+	@Getter
+	@Setter
+	private List<Annotation> annotations;
 
 	@Getter
 	@Setter

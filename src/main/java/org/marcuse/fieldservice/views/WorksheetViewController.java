@@ -48,14 +48,19 @@ public class WorksheetViewController {
 		List<WorksheetView> worksheetViewList = new ArrayList<WorksheetView>();
 
 		if(filter != null && filter.equals("visible")) {
-			worksheetRepository.findByVisible(true).forEach(worksheet -> worksheetViewList.add(worksheetView(worksheet.getId())));
+			worksheetRepository.findByVisible(true).forEach(worksheet -> {
+				WorksheetView worksheetView = worksheetView(worksheet.getId());
+				if(worksheetView.getAssignment().isActive()) {
+					worksheetViewList.add(worksheetView);
+				}
+			});
 		}
 		else if(filter != null && filter.equals("me")) {
 
 			worksheetRepository.findAll().forEach(
 				worksheet -> {
 					WorksheetView worksheetView = worksheetView(worksheet.getId());
-					if (worksheetView.isOwner()) {
+					if (worksheetView.isOwner() && worksheetView.getAssignment().isActive()) {
 						worksheetViewList.add(worksheetView);
 					}
 				}

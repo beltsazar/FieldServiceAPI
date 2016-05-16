@@ -137,6 +137,7 @@ public class WorksheetViewController {
 				WorksheetAddress worksheetAddress = new WorksheetAddress();
 				worksheetAddress.setId(address.getId());
 				worksheetAddress.setNumber(address.getNumber());
+				worksheetAddress.setSuffix(address.getSuffix());
 
 				List<Annotation> annotations = address.getAnnotations();
 				if(annotations.size() > 0) {

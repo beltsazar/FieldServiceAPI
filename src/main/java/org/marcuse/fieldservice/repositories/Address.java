@@ -22,6 +22,10 @@ public class Address {
 
 	@Getter
 	@Setter
+	private String suffix;
+
+	@Getter
+	@Setter
 	@ManyToOne
 	private Street street;
 

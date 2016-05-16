@@ -12,6 +12,8 @@ public interface AddressProjectionEntities {
 
 	long getNumber();
 
+	String getSuffix();
+
 	Street getStreet();
 
 	Area getArea();

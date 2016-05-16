@@ -27,6 +27,10 @@ public class WorksheetAddress {
 
 	@Getter
 	@Setter
+	private String suffix;
+
+	@Getter
+	@Setter
 	private List<Annotation> annotations;
 
 	@Getter

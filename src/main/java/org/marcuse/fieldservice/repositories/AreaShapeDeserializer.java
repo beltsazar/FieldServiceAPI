@@ -11,11 +11,9 @@ import java.io.IOException;
 public class AreaShapeDeserializer extends JsonDeserializer<String>
 {
 	@Override
-	public String deserialize(JsonParser jsonparser,
-							  DeserializationContext deserializationcontext) throws IOException, JsonProcessingException {
-
+	public String deserialize(JsonParser jsonparser, DeserializationContext deserializationcontext) throws IOException, JsonProcessingException {
 		JsonNode node = jsonparser.getCodec().readTree(jsonparser);
+
 		return node.toString();
 	}
-
 }

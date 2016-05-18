@@ -11,6 +11,8 @@ public interface AreaProjectionEntities {
 
 	int getNumber();
 
+	String getType();
+
 	String getShape();
 
 	City getCity();

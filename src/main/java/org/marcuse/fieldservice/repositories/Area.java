@@ -1,5 +1,6 @@
 package org.marcuse.fieldservice.repositories;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonRawValue;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -9,6 +10,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.util.List;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 public class Area {
 	enum Type {

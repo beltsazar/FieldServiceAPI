@@ -1,9 +1,11 @@
 package org.marcuse.fieldservice.repositories;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.springframework.data.rest.core.config.Projection;
 
 import java.time.LocalDateTime;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @Projection(name = "entities", types = Assignment.class)
 public interface AssignmentProjectionEntities {
 
@@ -22,5 +24,7 @@ public interface AssignmentProjectionEntities {
 	Account getAccount();
 
 	Worksheet getWorksheet();
+
+	Campaign getCampaign();
 
 }

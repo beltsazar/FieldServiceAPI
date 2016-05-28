@@ -1,12 +1,14 @@
 package org.marcuse.fieldservice.repositories;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 public class Assignment {
 
@@ -42,6 +44,11 @@ public class Assignment {
 	@Setter
 	@ManyToOne
 	private Account account;
+
+	@Getter
+	@Setter
+	@ManyToOne
+	private Campaign campaign;
 
 	@OneToOne(mappedBy = "assignment")
 	private Worksheet worksheet;

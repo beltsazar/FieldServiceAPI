@@ -42,12 +42,16 @@ public class WorksheetViewController {
 	@Autowired
 	private AccountRepository accountRepository;
 
+	@Autowired
+	private CampaignRepository campaignRepository;
+
 	@RequestMapping(path = "/api/worksheets/view", method = RequestMethod.GET)
-	public List<WorksheetView> worksheetViewList(@RequestParam(value = "filter", required = false) String filter) {
+	public List<WorksheetView> worksheetViewList(
+			@RequestParam(value = "filter", required = false) ArrayList<String> filter) {
 
 		List<WorksheetView> worksheetViewList = new ArrayList<WorksheetView>();
 
-		if(filter != null && filter.equals("visible")) {
+		if(filter != null && filter.contains("visible")) {
 			worksheetRepository.findByVisible(true).forEach(worksheet -> {
 				WorksheetView worksheetView = worksheetView(worksheet.getId());
 				if(worksheetView.getAssignment().isActive()) {
@@ -55,7 +59,7 @@ public class WorksheetViewController {
 				}
 			});
 		}
-		else if(filter != null && filter.equals("me")) {
+		else if(filter != null && filter.contains("me")) {
 
 			worksheetRepository.findAll().forEach(
 				worksheet -> {
@@ -69,6 +73,40 @@ public class WorksheetViewController {
 		}
 		else {
 			worksheetRepository.findAll().forEach(worksheet -> worksheetViewList.add(worksheetView(worksheet.getId())));
+		}
+
+		/**
+		 * Filter by active campaign (if any)
+		 */
+		if(filter != null && filter.contains("campaign")) {
+
+			Campaign activeCampaign;
+			List<Campaign> activeCampaigns = campaignRepository.findByActive(true);
+			if(activeCampaigns.size() > 0) {
+				activeCampaign = activeCampaigns.get(0);
+			}
+			else {
+				activeCampaign = null;
+			}
+
+			ListIterator<WorksheetView> worksheetViewListIterator = worksheetViewList.listIterator();
+
+			if(activeCampaign == null) {
+				while(worksheetViewListIterator.hasNext()) {
+					WorksheetView worksheetView = worksheetViewListIterator.next();
+					if(worksheetView.getAssignment().getCampaign() != null) {
+						worksheetViewListIterator.remove();
+					}
+				}
+			}
+			else {
+				while(worksheetViewListIterator.hasNext()) {
+					WorksheetView worksheetView = worksheetViewListIterator.next();
+					if (!activeCampaign.equals(worksheetView.getAssignment().getCampaign())) {
+						worksheetViewListIterator.remove();
+					}
+				}
+			}
 		}
 
 		worksheetViewList.sort(new Comparator<WorksheetView>() {

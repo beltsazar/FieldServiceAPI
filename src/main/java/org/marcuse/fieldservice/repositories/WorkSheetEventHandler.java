@@ -13,7 +13,7 @@ public class WorksheetEventHandler {
 	@HandleBeforeCreate
 	public void handleWorksheetCreation(Worksheet worksheet) {
 		worksheet.setCreationDate(LocalDateTime.now());
-		worksheet.setVisible(false);
+		worksheet.setShared(false);
 		worksheet.setIteration(1);
 	}
 

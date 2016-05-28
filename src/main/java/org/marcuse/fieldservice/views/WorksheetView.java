@@ -19,7 +19,7 @@ public class WorksheetView {
 
 	@Getter
 	@Setter
-	private boolean visible;
+	private boolean shared;
 
 	@Getter
 	@Setter

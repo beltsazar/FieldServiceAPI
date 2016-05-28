@@ -51,12 +51,10 @@ public class WorksheetViewController {
 
 		List<WorksheetView> worksheetViewList = new ArrayList<WorksheetView>();
 
-		if(filter != null && filter.contains("visible")) {
-			worksheetRepository.findByVisible(true).forEach(worksheet -> {
+		if(filter != null && filter.contains("shared")) {
+			worksheetRepository.findByShared(true).forEach(worksheet -> {
 				WorksheetView worksheetView = worksheetView(worksheet.getId());
-				if(worksheetView.getAssignment().isActive()) {
-					worksheetViewList.add(worksheetView);
-				}
+				worksheetViewList.add(worksheetView);
 			});
 		}
 		else if(filter != null && filter.contains("me")) {
@@ -64,7 +62,7 @@ public class WorksheetViewController {
 			worksheetRepository.findAll().forEach(
 				worksheet -> {
 					WorksheetView worksheetView = worksheetView(worksheet.getId());
-					if (worksheetView.isOwner() && worksheetView.getAssignment().isActive()) {
+					if (worksheetView.isOwner()) {
 						worksheetViewList.add(worksheetView);
 					}
 				}
@@ -73,6 +71,21 @@ public class WorksheetViewController {
 		}
 		else {
 			worksheetRepository.findAll().forEach(worksheet -> worksheetViewList.add(worksheetView(worksheet.getId())));
+		}
+
+		/**
+		 * Filter by active worksheet status
+		 */
+		if(filter != null && filter.contains("active")) {
+			ListIterator<WorksheetView> worksheetViewListIterator = worksheetViewList.listIterator();
+
+			while(worksheetViewListIterator.hasNext()) {
+				WorksheetView worksheetView = worksheetViewListIterator.next();
+				if (!worksheetView.getAssignment().isActive()) {
+					worksheetViewListIterator.remove();
+				}
+			}
+
 		}
 
 		/**
@@ -236,7 +249,7 @@ public class WorksheetViewController {
 		 * Fill the JSON object
 		 */
 		worksheetView.setId(worksheet.getId());
-		worksheetView.setVisible(worksheet.isVisible());
+		worksheetView.setShared(worksheet.isShared());
 		worksheetView.setIteration(worksheet.getIteration());
 		worksheetView.setOwner(currentAccount.equals(worksheet.getAssignment().getAccount()));
 		worksheetView.setCreationDate(worksheet.getCreationDate());

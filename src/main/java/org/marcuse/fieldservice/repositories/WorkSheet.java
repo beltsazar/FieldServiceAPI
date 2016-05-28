@@ -18,7 +18,7 @@ public class Worksheet {
 
 	@Getter
 	@Setter
-	private boolean visible;
+	private boolean shared;
 
 	@Getter
 	@Setter

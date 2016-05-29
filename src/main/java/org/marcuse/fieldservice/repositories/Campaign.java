@@ -23,10 +23,6 @@ public class Campaign {
 
 	@Getter
 	@Setter
-	private boolean completed;
-
-	@Getter
-	@Setter
 	private String name;
 
 }

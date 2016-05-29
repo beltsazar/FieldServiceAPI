@@ -93,26 +93,12 @@ public class WorksheetViewController {
 		 */
 		if(filter != null && filter.contains("campaign")) {
 
-			Campaign activeCampaign;
 			List<Campaign> activeCampaigns = campaignRepository.findByActive(true);
 			if(activeCampaigns.size() > 0) {
-				activeCampaign = activeCampaigns.get(0);
-			}
-			else {
-				activeCampaign = null;
-			}
+				Campaign activeCampaign = activeCampaigns.get(0);
 
-			ListIterator<WorksheetView> worksheetViewListIterator = worksheetViewList.listIterator();
+				ListIterator<WorksheetView> worksheetViewListIterator = worksheetViewList.listIterator();
 
-			if(activeCampaign == null) {
-				while(worksheetViewListIterator.hasNext()) {
-					WorksheetView worksheetView = worksheetViewListIterator.next();
-					if(worksheetView.getAssignment().getCampaign() != null) {
-						worksheetViewListIterator.remove();
-					}
-				}
-			}
-			else {
 				while(worksheetViewListIterator.hasNext()) {
 					WorksheetView worksheetView = worksheetViewListIterator.next();
 					if (!activeCampaign.equals(worksheetView.getAssignment().getCampaign())) {

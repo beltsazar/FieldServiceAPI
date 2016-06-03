@@ -18,5 +18,7 @@ public interface AssignmentRepository extends PagingAndSortingRepository<Assignm
 	List<Assignment> findByArea(@Param("area") Area area);
 	@Transactional
 	Page<Assignment> findByCampaign(@Param("campaign") Campaign campaign, Pageable page);
+	@Transactional
+	Page<Assignment> findByCampaignAndActive(@Param("campaign") Campaign campaign, @Param("active") boolean active, Pageable page);
 
 }

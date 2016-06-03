@@ -1,6 +1,7 @@
 package org.marcuse.fieldservice.repositories;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.rest.core.config.Projection;
 
 import java.time.LocalDateTime;
@@ -20,6 +21,9 @@ public interface AssignmentProjectionEntities {
 	LocalDateTime getCloseDate();
 
 	Area getArea();
+
+	@Value("#{target.area.getCity().getName()} #{target.area.number}")
+	String getAreaDisplayName();
 
 	Account getAccount();
 

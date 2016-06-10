@@ -1,23 +1,20 @@
-package org.marcuse.fieldservice.repositories;
+package org.marcuse.fieldservice.views;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonRawValue;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import lombok.Getter;
 import lombok.Setter;
+import org.marcuse.fieldservice.repositories.*;
 
 import javax.persistence.*;
 import java.util.List;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@Entity
-public class Area {
+public class AreaView {
 
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Getter
+	@Setter
 	private long id;
 
 	@Getter
@@ -26,23 +23,18 @@ public class Area {
 
 	@Getter
 	@Setter
-	private AreaType type;
+	private String type;
 
-	@Lob
-	@JsonRawValue
-	@JsonDeserialize(using = AreaShapeDeserializer.class)
 	@Getter
 	@Setter
 	private String shape;
 
 	@Getter
-	@ManyToOne
+	@Setter
 	private City city;
 
-	@OneToMany(mappedBy = "area")
-	private List<Address> addresses;
-
-	@OneToMany(mappedBy = "area")
+	@Getter
+	@Setter
 	private List<Assignment> assignments;
 
 }

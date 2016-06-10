@@ -91,7 +91,7 @@ public class AreaViewController {
 				LocalDateTime date1 = v1.getCreationDate();
 				LocalDateTime date2 = v2.getCreationDate();
 
-				return date1.compareTo(date2);
+				return date2.compareTo(date1);
 			}
 		});
 	}

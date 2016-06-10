@@ -5,10 +5,12 @@ import org.marcuse.fieldservice.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.*;
 
 @RestController
@@ -26,11 +28,13 @@ public class AreaViewController {
 	@RequestMapping(path = "/api/areas/view", method = RequestMethod.GET)
 	public List<AreaView> areaViewList(
 			@RequestParam(value = "type", required = false) AreaType areaType,
-			@RequestParam(value = "campaign", required = false) String campaign,
-			@RequestParam(value = "date", required = false) String assignmentCreationDate) {
+			@RequestParam(value = "campaign", required = false) Long campaign,
+			@RequestParam(value = "date", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime assignmentCreationDate) {
 
 		List<AreaView> areaViewList = new ArrayList<>();
 		List<Area> areaList;
+		final Campaign selectedCampaign;
+		final LocalDateTime creationDate = assignmentCreationDate;
 
 		if(areaType != null) {
 			areaList = areaRepository.findByType(areaType);
@@ -39,8 +43,15 @@ public class AreaViewController {
 			areaList = areaRepository.findAll();
 		}
 
+		if(campaign != null) {
+			selectedCampaign = campaignRepository.findOne(campaign);
+		}
+		else {
+			selectedCampaign = null;
+		}
+
 		areaList.forEach(area -> {
-			areaViewList.add(areaView(area));
+			areaViewList.add(areaView(area, selectedCampaign, creationDate));
 		});
 
 		sortAreas(areaViewList);
@@ -48,7 +59,7 @@ public class AreaViewController {
 		return areaViewList;
 	}
 
-	private AreaView areaView (Area area) {
+	private AreaView areaView (Area area, Campaign campaign, LocalDateTime creationDate) {
 		AreaView areaView = new AreaView();
 
 		areaView.setId(area.getId());
@@ -58,9 +69,31 @@ public class AreaViewController {
 		}
 		areaView.setShape(area.getShape());
 		areaView.setCity(area.getCity());
-		areaView.setAssignments(assignmentRepository.findByArea(area));
+
+		if (campaign != null) {
+			areaView.setAssignments(assignmentRepository.findByAreaAndCampaign(area, campaign));
+		}
+		else if (creationDate != null) {
+			areaView.setAssignments(assignmentRepository.findByAreaAndCreationDateGreaterThan(area, creationDate));
+		}
+		else {
+			areaView.setAssignments(assignmentRepository.findByArea(area));
+		}
+
+		sortAssignments(areaView.getAssignments());
 
 		return areaView;
+	}
+
+	private void sortAssignments(List<Assignment> assignmentList) {
+		assignmentList.sort(new Comparator<Assignment>() {
+			public int compare(Assignment v1, Assignment v2) {
+				LocalDateTime date1 = v1.getCreationDate();
+				LocalDateTime date2 = v2.getCreationDate();
+
+				return date1.compareTo(date2);
+			}
+		});
 	}
 
 	private void sortAreas(List<AreaView> areaViewList) {

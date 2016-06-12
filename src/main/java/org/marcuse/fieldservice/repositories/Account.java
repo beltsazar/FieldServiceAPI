@@ -1,6 +1,7 @@
 package org.marcuse.fieldservice.repositories;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,6 +12,7 @@ import java.util.List;
  * Created by danielmarcuse on 22/04/16.
  */
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 public class Account {
 	enum Roles {

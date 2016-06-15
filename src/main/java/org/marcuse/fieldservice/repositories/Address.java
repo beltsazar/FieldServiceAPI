@@ -34,6 +34,7 @@ public class Address {
 	@ManyToOne
 	private City city;
 
+	@Getter
 	@Setter
 	@ManyToOne
 	private Area area;

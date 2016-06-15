@@ -22,8 +22,8 @@ public interface AssignmentProjectionEntities {
 
 	Area getArea();
 
-	@Value("#{target.area.getCity().getName()} #{target.area.number}")
-	String getAreaDisplayName();
+	@Value("#{target.area != null ? target.area.getCity().getName() : \"\"}")
+	String getAreaCity();
 
 	Account getAccount();
 

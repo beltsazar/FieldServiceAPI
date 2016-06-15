@@ -20,4 +20,7 @@ public interface AddressProjectionEntities {
 
 	Area getArea();
 
+	@Value("#{target.area != null ? target.area.getCity().getName() : \"\"}")
+	String getAreaCity();
+
 }

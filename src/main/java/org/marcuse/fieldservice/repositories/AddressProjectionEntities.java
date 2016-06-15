@@ -16,6 +16,8 @@ public interface AddressProjectionEntities {
 
 	Street getStreet();
 
+	City getCity();
+
 	Area getArea();
 
 }

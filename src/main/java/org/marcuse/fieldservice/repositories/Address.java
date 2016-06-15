@@ -29,6 +29,11 @@ public class Address {
 	@ManyToOne
 	private Street street;
 
+	@Getter
+	@Setter
+	@ManyToOne
+	private City city;
+
 	@Setter
 	@ManyToOne
 	private Area area;

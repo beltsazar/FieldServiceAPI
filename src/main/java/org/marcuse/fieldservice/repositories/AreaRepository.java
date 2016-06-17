@@ -17,4 +17,6 @@ public interface AreaRepository extends PagingAndSortingRepository<Area, Long> {
 	List<Area> findByNumber(@Param("number") int number);
 	@Transactional
 	List<Area> findByType(@Param("type") AreaType type);
+	@Transactional
+	List<Area> findByAddresses(@Param("address") Address address);
 }

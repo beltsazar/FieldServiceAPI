@@ -1,50 +1,64 @@
 package org.marcuse.fieldservice.repositories;
 
-import org.marcuse.fieldservice.views.WorksheetView;
+import lombok.Getter;
+import lombok.Setter;
+import org.marcuse.fieldservice.views.AreaView;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Comparator;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.ListIterator;
 
 /**
  * Created by danielmarcuse on 03/06/16.
  */
 @Component(value="areaUtils")
 public class AreaUtils {
-/*
+
 	@Autowired
-	private CampaignRepository campaignRepository;
+	private AreaRepository areaRepository;
 
-	public List<Assignment> filterAssignments(Area area) {
-		List<Assignment> assignments = area.getAssignments();
+	@Transactional
+	public List<AreaView> getAreasByAddress(Address address) {
+		List<Address> addresses = new ArrayList<>();
+		addresses.add(address);
 
-		List<Campaign> activeCampaigns = campaignRepository.findByActive(true);
-		if(activeCampaigns.size() > 0) {
-			Campaign activeCampaign = activeCampaigns.get(0);
+		List<Area> areas = address.getAreas();
+		List<AreaView> displayAreas = new ArrayList<>();
 
-			ListIterator<Assignment> assignmentListIterator = assignments.listIterator();
-
-			while(assignmentListIterator.hasNext()) {
-				Assignment assignment = assignmentListIterator.next();
-				if (!activeCampaign.equals(assignment.getCampaign())) {
-					assignmentListIterator.remove();
-				}
-			}
+		if (areas.size() > 0) {
+			areas.forEach(area -> {
+				AreaView displayArea = new AreaView();
+				displayArea.setId(area.getId());
+				displayArea.setNumber(area.getNumber());
+				displayArea.setType(area.getType().name());
+				displayArea.setCity(area.getCity());
+				displayArea.setAssignments(null);
+				displayAreas.add(displayArea);
+			});
 		}
 
-		assignments.sort(new Comparator<Assignment>() {
-			public int compare(Assignment v1, Assignment v2) {
-				return v2.getCreationDate().compareTo(v1.getCreationDate());
-			}
-		});
-
-		return assignments;
+		return displayAreas;
 	}
-	*/
 
+	@Transactional
+	public AreaView getAreaByAssignment(Assignment assignment) {
+		Area area = assignment.getArea();
+
+		if (area != null) {
+			AreaView displayArea = new AreaView();
+			displayArea.setId(area.getId());
+			displayArea.setNumber(area.getNumber());
+			displayArea.setType(area.getType().name());
+			displayArea.setCity(area.getCity());
+			displayArea.setAssignments(null);
+
+			return displayArea;
+		}
+		else {
+			return null;
+		}
+	}
 
 }

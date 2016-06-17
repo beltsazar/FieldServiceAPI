@@ -142,7 +142,7 @@ public class WorksheetViewController {
 
 		Area area = assignment.getArea();
 
-		List<Address> addresses = addressesRepository.findByAreaOrderByStreetName(area);
+		List<Address> addresses = addressesRepository.findByAreasOrderByStreetName(area);
 
 		List<Visit> visits = visitRepository.findByWorksheet(worksheet);
 

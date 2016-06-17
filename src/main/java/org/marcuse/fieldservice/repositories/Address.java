@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
 import java.util.List;
@@ -36,8 +37,8 @@ public class Address {
 
 	@Getter
 	@Setter
-	@ManyToOne
-	private Area area;
+	@ManyToMany
+	private List<Area> areas;
 
 	@Getter
 	@OneToMany(mappedBy = "address")

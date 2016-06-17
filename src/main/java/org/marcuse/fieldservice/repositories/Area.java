@@ -36,10 +36,11 @@ public class Area {
 	private String shape;
 
 	@Getter
+	@Setter
 	@ManyToOne
 	private City city;
 
-	@OneToMany(mappedBy = "area")
+	@ManyToMany(mappedBy = "areas")
 	private List<Address> addresses;
 
 	@OneToMany(mappedBy = "area")

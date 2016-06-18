@@ -5,7 +5,7 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.stereotype.Repository;
 
 @Repository
-@RepositoryRestResource(path = "address_annotations")
+@RepositoryRestResource
 public interface AddressAnnotationRepository extends PagingAndSortingRepository<AddressAnnotation, Long> {
 
 }

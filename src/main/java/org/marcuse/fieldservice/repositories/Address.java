@@ -1,10 +1,7 @@
 package org.marcuse.fieldservice.repositories;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
 import java.util.List;
@@ -42,7 +39,7 @@ public class Address {
 
 	@Getter
 	@OneToMany(mappedBy = "address")
-	private List<Annotation> annotations;
+	private List<AddressAnnotation> addressAnnotations;
 
 	@OneToMany(mappedBy = "address")
 	private List<Visit> visits;

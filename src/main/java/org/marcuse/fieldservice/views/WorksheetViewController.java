@@ -2,20 +2,11 @@ package org.marcuse.fieldservice.views;
 
 
 import org.marcuse.fieldservice.repositories.*;
-import org.marcuse.fieldservice.views.WorksheetAddress;
-import org.marcuse.fieldservice.views.WorksheetGroup;
-import org.marcuse.fieldservice.views.WorksheetView;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.Nullable;
-import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
 import java.util.*;
 
 @RestController
@@ -181,10 +172,10 @@ public class WorksheetViewController {
 				worksheetAddress.setNumber(address.getNumber());
 				worksheetAddress.setSuffix(address.getSuffix());
 
-				List<Annotation> annotations = address.getAnnotations();
-				if(annotations.size() > 0) {
-					annotations.forEach(annotation -> annotation.setAddress(null));
-					worksheetAddress.setAnnotations(annotations);
+				List<AddressAnnotation> addressAnnotations = address.getAddressAnnotations();
+				if(addressAnnotations.size() > 0) {
+					addressAnnotations.forEach(annotation -> annotation.setAddress(null));
+					worksheetAddress.setAddressAnnotations(addressAnnotations);
 				}
 
 				addressVisits = getVisitsByAddress(address, visits);

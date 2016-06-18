@@ -7,13 +7,13 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDateTime;
 
 @Component
-@RepositoryEventHandler(Annotation.class)
-public class AnnotationEventHandler {
+@RepositoryEventHandler(AddressAnnotation.class)
+public class AddressAnnotationEventHandler {
 
 	@HandleBeforeCreate
-	public void handleAnnotationCreation(Annotation annotation) {
-		annotation.setCreationDate(LocalDateTime.now());
-		annotation.setModificationDate(LocalDateTime.now());
+	public void handleAddressAnnotationCreation(AddressAnnotation addressAnnotation) {
+		addressAnnotation.setCreationDate(LocalDateTime.now());
+		addressAnnotation.setModificationDate(LocalDateTime.now());
 	}
 
 }

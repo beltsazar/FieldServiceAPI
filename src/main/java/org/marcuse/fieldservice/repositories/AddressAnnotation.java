@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
-public class Annotation {
+public class AddressAnnotation {
 	enum AnnotationType {
 		INFO, WARNING, DO_NOT_VISIT
 	}

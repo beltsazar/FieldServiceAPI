@@ -10,7 +10,7 @@ public class RepositoryConfiguration extends RepositoryRestConfigurerAdapter {
 
 	@Override
     public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config) {
-        config.exposeIdsFor(Address.class, Street.class, City.class, Area.class, Worksheet.class, Visit.class, Assignment.class, Account.class, Annotation.class, Campaign.class);
+        config.exposeIdsFor(Address.class, Street.class, City.class, Area.class, Worksheet.class, Visit.class, Assignment.class, Account.class, AddressAnnotation.class, Campaign.class);
     }
 
 }

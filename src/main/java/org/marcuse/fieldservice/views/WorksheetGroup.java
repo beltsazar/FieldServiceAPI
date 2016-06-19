@@ -3,10 +3,7 @@ package org.marcuse.fieldservice.views;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.Setter;
-import org.marcuse.fieldservice.repositories.Address;
-import org.marcuse.fieldservice.repositories.Street;
-import org.marcuse.fieldservice.repositories.Visit;
-import org.marcuse.fieldservice.repositories.Worksheet;
+import org.marcuse.fieldservice.repositories.*;
 
 import java.util.List;
 
@@ -16,6 +13,10 @@ import java.util.List;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class WorksheetGroup {
+
+	@Getter
+	@Setter
+	private City city;
 
 	@Getter
 	@Setter

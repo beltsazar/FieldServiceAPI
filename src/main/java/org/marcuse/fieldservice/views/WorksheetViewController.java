@@ -133,7 +133,7 @@ public class WorksheetViewController {
 
 		Area area = assignment.getArea();
 
-		List<Address> addresses = addressesRepository.findByAreasOrderByStreetName(area);
+		List<Address> addresses = addressesRepository.findByAreasOrderByCityNameAscStreetNameAsc(area);
 
 		List<Visit> visits = visitRepository.findByWorksheet(worksheet);
 
@@ -144,26 +144,34 @@ public class WorksheetViewController {
 		Account currentAccount = accountRepository.findByUsernameIgnoreCase(userDetails.getUsername());
 
 		/**
-		 * Create a worksheet group for each unique street in the collection of addresses
+		 * Create a worksheet group for each unique city/street in the collection of addresses
 		 */
-		HashSet<Street> streetHashSet = new HashSet<>();
-
-		addresses.forEach(address -> streetHashSet.add(address.getStreet()));
 
 		List<WorksheetGroup> worksheetGroups = new ArrayList<>();
+		ListIterator<Address> addressIterator = addresses.listIterator();
 
-		streetHashSet.forEach(street -> {
-			WorksheetGroup worksheetGroup = new WorksheetGroup();
-			worksheetGroup.setStreet(street);
-			worksheetGroup.setAddresses(new ArrayList<>());
-			worksheetGroups.add(worksheetGroup);
-		});
+		Address previousAddress = null;
+
+		while (addressIterator.hasNext()) {
+			Address currentAddress = addressIterator.next();
+
+			if (previousAddress == null || (!currentAddress.getCity().equals(previousAddress.getCity()) || !currentAddress.getStreet().equals(previousAddress.getStreet()))) {
+				WorksheetGroup worksheetGroup = new WorksheetGroup();
+				worksheetGroup.setStreet(currentAddress.getStreet());
+				worksheetGroup.setCity(currentAddress.getCity());
+				worksheetGroup.setAddresses(new ArrayList<>());
+				worksheetGroups.add(worksheetGroup);
+			}
+
+			previousAddress = currentAddress;
+		}
 
 		/**
 		 * Add visits to each address and assign address to the correct group by street
 		 */
+
 		addresses.forEach(address -> {
-			WorksheetGroup worksheetGroup = getWorksheetGroupByStreet(address.getStreet(), worksheetGroups);
+			WorksheetGroup worksheetGroup = getWorksheetGroupByCityAndStreet(address.getCity(), address.getStreet(), worksheetGroups);
 			List<Visit> addressVisits = new ArrayList<>();
 
 			if (worksheetGroup != null) {
@@ -198,11 +206,18 @@ public class WorksheetViewController {
 		});
 
 		/**
-		 * Sort worksheet group by street name
+		 * Sort worksheet group by city and street name
 		 */
 		worksheetGroups.sort(new Comparator<WorksheetGroup>() {
 			public int compare(WorksheetGroup v1, WorksheetGroup v2) {
-				return v1.getStreet().getName().compareTo(v2.getStreet().getName());
+				int compareResult = v1.getCity().getName().compareTo(v2.getCity().getName());
+
+				if (compareResult == 0) {
+					return v1.getStreet().getName().compareTo(v2.getStreet().getName());
+				}
+				else {
+					return compareResult;
+				}
 			}
 		});
 
@@ -237,10 +252,10 @@ public class WorksheetViewController {
 		return worksheetView;
 	}
 
-	private WorksheetGroup getWorksheetGroupByStreet(Street street, List<WorksheetGroup> worksheetGroups) {
+	private WorksheetGroup getWorksheetGroupByCityAndStreet(City city, Street street, List<WorksheetGroup> worksheetGroups) {
 
 		for (WorksheetGroup worksheetGroup : worksheetGroups) {
-			if (street.equals(worksheetGroup.getStreet())) {
+			if (street.equals(worksheetGroup.getStreet()) && city.equals(worksheetGroup.getCity())) {
 				return worksheetGroup;
 			}
 

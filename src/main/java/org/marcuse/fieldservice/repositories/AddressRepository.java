@@ -18,5 +18,6 @@ public interface AddressRepository extends PagingAndSortingRepository<Address, L
 	List<Address> findByNumber(@Param("number") int number);
 	List<Address> findByAreas(@Param("area") Area area, Sort sort);
 	List<Address> findByAreasOrderByStreetName(@Param("area") Area area);
+	List<Address> findByAreasOrderByCityNameAscStreetNameAsc(@Param("area") Area area);
 
 }

@@ -16,8 +16,11 @@ import java.util.List;
 public interface AddressRepository extends PagingAndSortingRepository<Address, Long> {
 
 	List<Address> findByNumber(@Param("number") int number);
+	@Transactional
 	List<Address> findByAreas(@Param("area") Area area, Sort sort);
+	@Transactional
 	List<Address> findByAreasOrderByStreetName(@Param("area") Area area);
+	@Transactional
 	List<Address> findByAreasOrderByCityNameAscStreetNameAsc(@Param("area") Area area);
 
 }

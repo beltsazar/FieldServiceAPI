@@ -11,10 +11,6 @@ import java.time.LocalDateTime;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 public class AddressAnnotation {
-	enum AnnotationType {
-		INFO, WARNING, DO_NOT_VISIT
-	}
-
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Getter
@@ -22,7 +18,7 @@ public class AddressAnnotation {
 
 	@Getter
 	@Setter
-	private AnnotationType type;
+	private AddressAnnotationType type;
 
 	@Getter
 	@Setter

@@ -182,8 +182,22 @@ public class WorksheetViewController {
 
 				List<AddressAnnotation> addressAnnotations = address.getAddressAnnotations();
 				if(addressAnnotations.size() > 0) {
-					addressAnnotations.forEach(annotation -> annotation.setAddress(null));
-					worksheetAddress.setAddressAnnotations(addressAnnotations);
+					List<WorksheetAddressAnnotation> worksheetAddressAnnotations = new ArrayList<>();
+
+					addressAnnotations.forEach(annotation -> {
+						WorksheetAddressAnnotation worksheetAddressAnnotation = new WorksheetAddressAnnotation();
+
+						worksheetAddressAnnotation.setId(annotation.getId());
+						worksheetAddressAnnotation.setComment(annotation.getComment());
+						worksheetAddressAnnotation.setType(annotation.getType());
+						worksheetAddressAnnotation.setCreationDate(annotation.getCreationDate());
+						worksheetAddressAnnotation.setModificationDate(annotation.getModificationDate());
+
+						worksheetAddressAnnotations.add(worksheetAddressAnnotation);
+					});
+
+
+					worksheetAddress.setAddressAnnotations(worksheetAddressAnnotations);
 				}
 
 				addressVisits = getVisitsByAddress(address, visits);

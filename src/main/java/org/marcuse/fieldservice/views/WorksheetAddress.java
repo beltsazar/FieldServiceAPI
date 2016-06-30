@@ -29,7 +29,7 @@ public class WorksheetAddress {
 
 	@Getter
 	@Setter
-	private List<AddressAnnotation> addressAnnotations;
+	private List<WorksheetAddressAnnotation> addressAnnotations;
 
 	@Getter
 	@Setter

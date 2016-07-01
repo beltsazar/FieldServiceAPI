@@ -135,7 +135,19 @@ public class WorksheetViewController {
 
 		List<Address> addresses = addressesRepository.findByAreasOrderByCityNameAscStreetNameAsc(area);
 
-		List<Visit> visits = visitRepository.findByWorksheet(worksheet);
+		List<WorksheetVisit> visits = new ArrayList<>();
+
+		visitRepository.findByWorksheet(worksheet).forEach(visit -> {
+			WorksheetVisit worksheetVisit = new WorksheetVisit();
+
+			worksheetVisit.setId(visit.getId());
+			worksheetVisit.setIteration(visit.getIteration());
+			worksheetVisit.setSuccess(visit.isSuccess());
+			worksheetVisit.setCreationDate(visit.getCreationDate());
+			worksheetVisit.setAddress(visit.getAddress());
+
+			visits.add(worksheetVisit);
+		});
 
 		/**
 		 * Get the current logged in Account
@@ -172,7 +184,7 @@ public class WorksheetViewController {
 
 		addresses.forEach(address -> {
 			WorksheetGroup worksheetGroup = getWorksheetGroupByCityAndStreet(address.getCity(), address.getStreet(), worksheetGroups);
-			List<Visit> addressVisits = new ArrayList<>();
+			List<WorksheetVisit> addressVisits = new ArrayList<>();
 
 			if (worksheetGroup != null) {
 				WorksheetAddress worksheetAddress = new WorksheetAddress();
@@ -203,8 +215,8 @@ public class WorksheetViewController {
 				addressVisits = getVisitsByAddress(address, visits);
 
 				if(addressVisits.size() > 0) {
-					addressVisits.sort(new Comparator<Visit>() {
-						public int compare(Visit v1, Visit v2) {
+					addressVisits.sort(new Comparator<WorksheetVisit>() {
+						public int compare(WorksheetVisit v1, WorksheetVisit v2) {
 							return ((Long) v1.getIteration()).compareTo(v2.getIteration());
 						}
 					});
@@ -278,11 +290,11 @@ public class WorksheetViewController {
 		return null;
 	}
 
-	private List<Visit> getVisitsByAddress(Address address, List<Visit> visits) {
+	private List<WorksheetVisit> getVisitsByAddress(Address address, List<WorksheetVisit> visits) {
 
-		List<Visit> matchingVisits = new ArrayList<>();
+		List<WorksheetVisit> matchingVisits = new ArrayList<>();
 
-		for (Visit visit : visits) {
+		for (WorksheetVisit visit : visits) {
 			if (address.equals(visit.getAddress())) {
 				matchingVisits.add(visit);
 			}

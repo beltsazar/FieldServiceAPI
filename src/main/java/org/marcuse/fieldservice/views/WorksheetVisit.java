@@ -1,11 +1,13 @@
 package org.marcuse.fieldservice.views;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.Setter;
-import org.marcuse.fieldservice.repositories.AddressAnnotation;
+import org.marcuse.fieldservice.repositories.Address;
 import org.marcuse.fieldservice.repositories.Visit;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -13,7 +15,7 @@ import java.util.List;
  */
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class WorksheetAddress {
+public class WorksheetVisit {
 
 	@Getter
 	@Setter
@@ -21,17 +23,18 @@ public class WorksheetAddress {
 
 	@Getter
 	@Setter
-	private int number;
+	private boolean success;
 
 	@Getter
 	@Setter
-	private String suffix;
+	private long iteration;
 
 	@Getter
 	@Setter
-	private List<WorksheetAddressAnnotation> addressAnnotations;
+	private Address address;
 
 	@Getter
 	@Setter
-	private List<WorksheetVisit> visits;
+	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS")
+	public LocalDateTime creationDate;
 }

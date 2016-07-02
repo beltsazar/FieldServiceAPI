@@ -28,7 +28,7 @@ public class Account {
 	@Setter
 	private String username;
 
-	@JsonIgnore
+//	@JsonIgnore
 	@Getter
 	@Setter
 	private String password;

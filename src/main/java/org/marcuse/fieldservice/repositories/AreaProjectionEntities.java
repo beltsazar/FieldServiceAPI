@@ -13,6 +13,8 @@ public interface AreaProjectionEntities {
 
 	String getType();
 
+	String getComment();
+
 	String getShape();
 
 	City getCity();

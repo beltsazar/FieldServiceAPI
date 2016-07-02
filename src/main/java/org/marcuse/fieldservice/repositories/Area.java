@@ -14,7 +14,6 @@ import java.util.List;
 @Entity
 public class Area {
 
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Getter
@@ -27,6 +26,10 @@ public class Area {
 	@Getter
 	@Setter
 	private AreaType type;
+
+	@Getter
+	@Setter
+	private String comment;
 
 	@Lob
 	@JsonRawValue

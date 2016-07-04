@@ -74,7 +74,7 @@ public class AreaViewController {
 			areaView.setAssignments(assignmentRepository.findByAreaAndCampaign(area, campaign));
 		}
 		else if (creationDate != null) {
-			areaView.setAssignments(assignmentRepository.findByAreaAndCreationDateGreaterThan(area, creationDate));
+			areaView.setAssignments(assignmentRepository.findByAreaAndCreationDateGreaterThanEqual(area, creationDate));
 		}
 		else {
 			areaView.setAssignments(assignmentRepository.findByArea(area));

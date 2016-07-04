@@ -32,12 +32,12 @@ public interface AssignmentRepository extends PagingAndSortingRepository<Assignm
 	Page<Assignment> findByActive(@Param("active") boolean active, Pageable page);
 
 	@Transactional
-	Page<Assignment> findByCreationDateGreaterThan(@Param("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime creationDate, Pageable page);
+	Page<Assignment> findByCreationDateGreaterThanEqual(@Param("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime creationDate, Pageable page);
 
 	@Transactional
 	List<Assignment> findByAreaAndCampaign(@Param("area") Area area, @Param("campaign") Campaign campaign);
 
 	@Transactional
-	List<Assignment> findByAreaAndCreationDateGreaterThan(@Param("area") Area area, @Param("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime creationDate);
+	List<Assignment> findByAreaAndCreationDateGreaterThanEqual(@Param("area") Area area, @Param("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime creationDate);
 
 }

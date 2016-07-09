@@ -256,7 +256,10 @@ public class WorksheetViewController {
 					int compareResult = ((Integer) v1.getNumber()).compareTo(v2.getNumber());
 
 					if (compareResult == 0) {
-						return v1.getSuffix().compareTo(v2.getSuffix());
+						String suffix1 = (v1.getSuffix() != null) ? v1.getSuffix() : "";
+						String suffix2 = (v2.getSuffix() != null) ? v2.getSuffix() : "";
+
+						return suffix1.compareTo(suffix2);
 					}
 					else {
 						return compareResult;

@@ -253,7 +253,15 @@ public class WorksheetViewController {
 		worksheetGroups.forEach(worksheetGroup ->
 			worksheetGroup.getAddresses().sort(new Comparator<WorksheetAddress>() {
 				public int compare(WorksheetAddress v1, WorksheetAddress v2) {
-					return ((Integer) v1.getNumber()).compareTo(v2.getNumber());
+					int compareResult = ((Integer) v1.getNumber()).compareTo(v2.getNumber());
+
+					if (compareResult == 0) {
+						return v1.getSuffix().compareTo(v2.getSuffix());
+					}
+					else {
+						return compareResult;
+					}
+
 				}
 			})
 		);

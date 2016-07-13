@@ -1,0 +1,20 @@
+.bash_profile goed zetten
+script folder maken: ~/bin
+plist in ~/Library/LaunchAgents
+check ~/.pgpass
+
+launchctl load ~/Library/LaunchAgents/org.marcuse.db_backup.plist
+launchctl unload ~/Library/LaunchAgents/org.marcuse.db_backup.plist
+launchctl start ~/Library/LaunchAgents/org.marcuse.db_backup.plist
+launchctl stop ~/Library/LaunchAgents/org.marcuse.db_backup.plist
+launchctl list | grep "org.marcuse.db_backup"
+
+restore database met 'clean' optie
+pg_restore -U postgres -c -d fieldservice db_backups/fieldservice_2016-07-13T220000.tar
+
+
+Show hidden files:
+defaults write com.apple.finder AppleShowAllFiles YES
+
+start spring boot:
+java -jar fieldservice...

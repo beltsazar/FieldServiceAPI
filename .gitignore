@@ -1,8 +1,9 @@
 # Created by .ignore support plugin (hsz.mobi)
-.idea/libraries
+.idea/libraries/
 /src/main/resources/static
 /src/main/resources/application.properties
 .idea/shelf/
 .idea/workspace.xml
 src/main/resources/templates/
 target/
+keystore.p12

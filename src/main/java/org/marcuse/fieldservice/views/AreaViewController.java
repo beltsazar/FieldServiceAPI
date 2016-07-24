@@ -88,10 +88,23 @@ public class AreaViewController {
 	private void sortAssignments(List<Assignment> assignmentList) {
 		assignmentList.sort(new Comparator<Assignment>() {
 			public int compare(Assignment v1, Assignment v2) {
-				LocalDateTime date1 = v1.getCreationDate();
-				LocalDateTime date2 = v2.getCreationDate();
+				int compareResultActive;
 
-				return date2.compareTo(date1);
+				Boolean active1 = v1.isActive();
+				Boolean active2 = v2.isActive();
+
+				compareResultActive = active2.compareTo(active1);
+
+				if (compareResultActive == 0) {
+					LocalDateTime date1 = v1.getCreationDate();
+					LocalDateTime date2 = v2.getCreationDate();
+
+					return date2.compareTo(date1);
+				}
+				else {
+					return compareResultActive;
+				}
+
 			}
 		});
 	}

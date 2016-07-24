@@ -12,6 +12,8 @@ launchctl list | grep "org.marcuse.db_backup"
 restore database met 'clean' optie
 pg_restore -U postgres -c -d fieldservice db_backups/fieldservice_2016-07-13T220000.tar
 
+psql -U postgres -d fieldservice -f Desktop/fieldservice_20160716010005.sql
+
 
 Show hidden files:
 defaults write com.apple.finder AppleShowAllFiles YES

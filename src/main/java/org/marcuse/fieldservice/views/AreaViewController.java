@@ -1,6 +1,7 @@
 package org.marcuse.fieldservice.views;
 
-
+import com.querydsl.core.BooleanBuilder;
+import com.querydsl.core.types.dsl.BooleanExpression;
 import org.marcuse.fieldservice.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -70,15 +71,29 @@ public class AreaViewController {
 		areaView.setShape(area.getShape());
 		areaView.setCity(area.getCity());
 
+		/**
+		 * Use queryDsl for dynamic query
+		 */
+		QAssignment assignment = QAssignment.assignment;
+		BooleanBuilder booleanBuilder = new BooleanBuilder();
+
 		if (campaign != null) {
-			areaView.setAssignments(assignmentRepository.findByAreaAndCampaign(area, campaign));
+			booleanBuilder.and(
+					assignment.area.eq(area)).and(
+					assignment.campaign.eq(campaign));
 		}
 		else if (creationDate != null) {
-			areaView.setAssignments(assignmentRepository.findByAreaAndCreationDateGreaterThanEqual(area, creationDate));
+			booleanBuilder.and(
+					assignment.area.eq(area)).and(
+					assignment.creationDate.after(creationDate).or(
+					assignment.closeDate.after(creationDate))
+			);
 		}
 		else {
-			areaView.setAssignments(assignmentRepository.findByArea(area));
+			booleanBuilder.and(assignment.area.eq(area));
 		}
+
+		areaView.setAssignments((ArrayList<Assignment>) assignmentRepository.findAll(booleanBuilder));
 
 		sortAssignments(areaView.getAssignments());
 

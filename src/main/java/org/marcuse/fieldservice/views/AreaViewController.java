@@ -29,12 +29,12 @@ public class AreaViewController {
 	@RequestMapping(path = "/api/areas/view", method = RequestMethod.GET)
 	public List<AreaView> areaViewList(
 			@RequestParam(value = "type", required = false) AreaType areaType,
-			@RequestParam(value = "campaign", required = false) Long campaign,
+			@RequestParam(value = "campaign", required = false) ArrayList<Long> campaign,
 			@RequestParam(value = "date", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime assignmentCreationDate) {
 
 		List<AreaView> areaViewList = new ArrayList<>();
 		List<Area> areaList;
-		final Campaign selectedCampaign;
+		final ArrayList<Campaign> selectedCampaigns = new ArrayList<>();
 		final LocalDateTime creationDate = assignmentCreationDate;
 
 		if(areaType != null) {
@@ -45,14 +45,13 @@ public class AreaViewController {
 		}
 
 		if(campaign != null) {
-			selectedCampaign = campaignRepository.findOne(campaign);
-		}
-		else {
-			selectedCampaign = null;
+			for (Long campaignId : campaign) {
+				selectedCampaigns.add(campaignRepository.findOne(campaignId));
+			}
 		}
 
 		areaList.forEach(area -> {
-			areaViewList.add(areaView(area, selectedCampaign, creationDate));
+			areaViewList.add(areaView(area, selectedCampaigns, creationDate));
 		});
 
 		sortAreas(areaViewList);
@@ -60,7 +59,7 @@ public class AreaViewController {
 		return areaViewList;
 	}
 
-	private AreaView areaView (Area area, Campaign campaign, LocalDateTime creationDate) {
+	private AreaView areaView (Area area, ArrayList<Campaign> campaigns, LocalDateTime creationDate) {
 		AreaView areaView = new AreaView();
 
 		areaView.setId(area.getId());
@@ -77,29 +76,31 @@ public class AreaViewController {
 		QAssignment assignment = QAssignment.assignment;
 		BooleanBuilder booleanBuilder = new BooleanBuilder();
 
-		if (campaign != null) {
-			booleanBuilder.and(
-					assignment.area.eq(area)).and(
-					assignment.campaign.eq(campaign));
+		/* At least the assignment should belong to the area */
+		booleanBuilder.and(assignment.area.eq(area));
+
+		/* If there are campaigns selected, add them to query */
+		if (campaigns.size() > 0) {
+			booleanBuilder.and(assignment.campaign.in(campaigns));
 		}
-		else if (creationDate != null) {
+
+		/* If start date is present, add it to query */
+		if (creationDate != null) {
 			booleanBuilder.and(
-					assignment.area.eq(area)).and(
-					assignment.creationDate.after(creationDate).or(
-					assignment.closeDate.after(creationDate))
+				assignment.creationDate.after(creationDate).or(
+				assignment.closeDate.after(creationDate))
 			);
-		}
-		else {
-			booleanBuilder.and(assignment.area.eq(area));
 		}
 
 		areaView.setAssignments((ArrayList<Assignment>) assignmentRepository.findAll(booleanBuilder));
-
 		sortAssignments(areaView.getAssignments());
-
 		return areaView;
 	}
 
+	/**
+	 * Sort assignments: first active, second creation date (newest first)
+	 * @param assignmentList
+	 */
 	private void sortAssignments(List<Assignment> assignmentList) {
 		assignmentList.sort(new Comparator<Assignment>() {
 			public int compare(Assignment v1, Assignment v2) {

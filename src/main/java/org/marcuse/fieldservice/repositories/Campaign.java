@@ -25,4 +25,8 @@ public class Campaign {
 	@Setter
 	private String name;
 
+	@Getter
+	@Setter
+	private String shortName;
+
 }

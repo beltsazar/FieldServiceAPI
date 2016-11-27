@@ -30,12 +30,16 @@ public class AreaViewController {
 	public List<AreaView> areaViewList(
 			@RequestParam(value = "type", required = false) AreaType areaType,
 			@RequestParam(value = "campaign", required = false) ArrayList<Long> campaign,
-			@RequestParam(value = "date", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime assignmentCreationDate) {
+			@RequestParam(value = "creationDate", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime assignmentCreationDate,
+			@RequestParam(value = "creationCloseDate", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime assignmentCreationCloseDate) {
 
 		List<AreaView> areaViewList = new ArrayList<>();
 		List<Area> areaList;
 		final ArrayList<Campaign> selectedCampaigns = new ArrayList<>();
 		final LocalDateTime creationDate = assignmentCreationDate;
+		final LocalDateTime creationCloseDate = assignmentCreationCloseDate;
+
+
 
 		if(areaType != null) {
 			areaList = areaRepository.findByType(areaType);
@@ -51,7 +55,7 @@ public class AreaViewController {
 		}
 
 		areaList.forEach(area -> {
-			areaViewList.add(areaView(area, selectedCampaigns, creationDate));
+			areaViewList.add(areaView(area, selectedCampaigns, creationDate, creationCloseDate));
 		});
 
 		sortAreas(areaViewList);
@@ -59,7 +63,7 @@ public class AreaViewController {
 		return areaViewList;
 	}
 
-	private AreaView areaView (Area area, ArrayList<Campaign> campaigns, LocalDateTime creationDate) {
+	private AreaView areaView (Area area, ArrayList<Campaign> campaigns, LocalDateTime creationDate, LocalDateTime creationCloseDate) {
 		AreaView areaView = new AreaView();
 
 		areaView.setId(area.getId());
@@ -87,8 +91,15 @@ public class AreaViewController {
 		/* If start date is present, add it to query */
 		if (creationDate != null) {
 			booleanBuilder.and(
-				assignment.creationDate.after(creationDate).or(
-				assignment.closeDate.after(creationDate))
+					assignment.creationDate.after(creationDate)
+			);
+		}
+
+		/* If start date is present, add it to query */
+		if (creationCloseDate != null) {
+			booleanBuilder.and(
+				assignment.creationDate.after(creationCloseDate).or(
+				assignment.closeDate.after(creationCloseDate))
 			);
 		}
 

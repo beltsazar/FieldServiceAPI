@@ -21,7 +21,7 @@ import java.util.List;
 @RepositoryRestResource
 public interface AssignmentRepository extends PagingAndSortingRepository<Assignment, Long>, QueryDslPredicateExecutor<Assignment> {
 
-	List<Assignment> findByArea(@Param("area") Area area);
+	List<Assignment> findByArea(@Param("area") Area area, Pageable page);
 
 	@Transactional
 	Page<Assignment> findByCampaign(@Param(value="campaign") Campaign campaign, Pageable page);

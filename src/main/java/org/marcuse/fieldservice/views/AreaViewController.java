@@ -103,7 +103,16 @@ public class AreaViewController {
 			);
 		}
 
-		areaView.setAssignments((ArrayList<Assignment>) assignmentRepository.findAll(booleanBuilder));
+		ArrayList<Assignment> assignmentList = (ArrayList<Assignment>) assignmentRepository.findAll(booleanBuilder);
+
+		/**
+		 * Remove area object from assignment object
+		 */
+		assignmentList.forEach(assignmentItem -> {
+			assignmentItem.setArea(null);
+		});
+
+		areaView.setAssignments(assignmentList);
 		sortAssignments(areaView.getAssignments());
 		return areaView;
 	}

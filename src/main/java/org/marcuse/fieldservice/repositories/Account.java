@@ -2,6 +2,7 @@ package org.marcuse.fieldservice.repositories;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -28,10 +29,17 @@ public class Account {
 	@Setter
 	private String username;
 
-//	@JsonIgnore
-	@Getter
-	@Setter
 	private String password;
+
+	@JsonIgnore
+	public String getPassword() {
+		return password;
+	}
+
+	@JsonProperty
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
 	@Getter
 	@Setter
